@@ -29,6 +29,14 @@ namespace AlmacenLVT.Controllers
             return Ok(resultado);
         }
 
+        [HttpGet]
+        [Route("PorProductoID/{ProductoID}")]
+        public IActionResult ProductoPorID(int ProductoID)
+        {
+            return Ok(_productoService.ObtenerPorID(ProductoID));
+        }
+
+
         [HttpPost]
         [Route("agregar")]
         public IActionResult Agregar([FromBody] Producto _producto)

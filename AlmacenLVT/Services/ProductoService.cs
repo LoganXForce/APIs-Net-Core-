@@ -18,8 +18,23 @@ namespace AlmacenLVT.Services
 
         public List<Producto> Obtener()
         {
-           var resultado = _productoDBContext.Producto.Include(x => x.Proveedor).ToList();
+           var resultado = _productoDBContext.Producto.Include(x => x.Proveedor).OrderByDescending(x => x.ProductoID).ToList();
             return resultado;
+        }
+
+        public Producto ObtenerPorID(int ProductoID)
+        {
+            try
+            {
+                var resultado = _productoDBContext.Producto.Where(x => x.ProductoID == ProductoID).FirstOrDefault();
+                var proveedor = _productoDBContext.Proveedor.Where(x => x.ProveedorID == resultado.ProveedorID).FirstOrDefault();
+
+                return resultado;
+            }
+            catch (Exception error)
+            {
+                return new Producto();
+            }
         }
 
 
